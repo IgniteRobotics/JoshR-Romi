@@ -6,5 +6,19 @@
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
     }
+  },
+  "NetworkTables": {
+    "LiveWindow": {
+      "RomiDrivetrain": {
+        "open": true
+      },
+      "Ungrouped": {
+        "DifferentialDrive[1]": {
+          "open": true
+        },
+        "open": true
+      },
+      "open": true
+    }
   }
 }
