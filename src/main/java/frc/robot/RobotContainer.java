@@ -6,9 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.DriveDistance;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.RomiDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,6 +28,10 @@ public class RobotContainer {
 
   private final ArcadeDrive arcadeDriveCommand = new ArcadeDrive(m_romiDrivetrain, () -> driveController.getLeftY(), () -> driveController.getLeftX());
 
+  private final DriveDistance driveDistanceCommand = new DriveDistance(m_romiDrivetrain, Math.PI, 1.0);
+
+  private JoystickButton btn_driveA = new JoystickButton(driveController, XboxController.Button.kA.value);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -40,7 +46,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    btn_driveA.whenHeld(driveDistanceCommand);
+  }
 
 
   private void setDefaultCommands() {

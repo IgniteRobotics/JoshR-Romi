@@ -9,11 +9,20 @@
   },
   "NetworkTables": {
     "LiveWindow": {
+      ".status": {
+        "open": true
+      },
       "RomiDrivetrain": {
         "open": true
       },
       "Ungrouped": {
         "DifferentialDrive[1]": {
+          "open": true
+        },
+        "Encoder[0]": {
+          "open": true
+        },
+        "Encoder[1]": {
           "open": true
         },
         "open": true
