@@ -8,9 +8,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.DriveDistance;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.SimpleAuton;
 import frc.robot.subsystems.RomiDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import com.igniterobotics.robotbase.preferences.DoublePreference;
+
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,6 +24,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private DoublePreference autonInitialTurnAngle = new DoublePreference("Auton Angle One", 90);
+  private DoublePreference autonSecondTurnAngle = new DoublePreference("Auton Angle Two", 135);
+
   private final RomiDrivetrain m_romiDrivetrain = new RomiDrivetrain();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_romiDrivetrain);
@@ -30,11 +37,16 @@ public class RobotContainer {
 
   private final DriveDistance driveDistanceCommand = new DriveDistance(m_romiDrivetrain, Math.PI, 1.0);
 
+  private final SimpleAuton simpleAutonCommand = new SimpleAuton(m_romiDrivetrain, autonInitialTurnAngle, autonSecondTurnAngle);
+
   private JoystickButton btn_driveA = new JoystickButton(driveController, XboxController.Button.kA.value);
+
+  private JoystickButton btn_autonX = new JoystickButton(driveController, XboxController.Button.kX.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+
     configureButtonBindings();
     setDefaultCommands();
     // do something
@@ -48,6 +60,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     btn_driveA.whenHeld(driveDistanceCommand);
+    btn_autonX.whenPressed(simpleAutonCommand);
   }
 
 
@@ -62,6 +75,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return simpleAutonCommand;
   }
 }
